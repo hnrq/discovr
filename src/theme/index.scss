@@ -1,0 +1,36 @@
+@use "utils/mixins";
+@use "components";
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca&family=Montserrat&display=swap");
+
+:root {
+  --base-color-primary: 333, 100%;
+  @include mixins.generate-color("primary", var(--base-color-primary));
+  --drop-shadow: 0px 2px 12px 0px hsla(0, 0%, 0%, 0.2);
+  --body-font: "Montserrat", sans-serif;
+  --heading-font: "Lexend Deca", sans-serif;
+  --base-spacing: 8px;
+}
+
+html {
+  // Add theme-specific styling here
+  &.dark {
+    --background-color: hsl(0deg 0% 0%);
+    --text-color: 0, 0%, 100%;
+    @include mixins.generate-emphasis(var(--text-color));
+  }
+
+  &.light {
+    --background-color: hsl(0deg 0% 100%);
+    --text-color: 0, 0%, 0%;
+    @include mixins.generate-emphasis(var(--text-color));
+  }
+
+  font-family: var(--body-font);
+  font-size: 18px;
+  background: var(--background-color);
+  color: var(--color-high);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 48;
+}
