@@ -8,6 +8,7 @@ import {
   JSX,
 } from 'solid-js';
 import { Store } from 'solid-js/store';
+import classNames from 'classnames';
 
 import './index.scss';
 
@@ -33,7 +34,10 @@ const Autocomplete: Component<AutocompleteProps> = ({
   const [focused, setFocused] = createSignal(autoFocus);
 
   return (
-    <div class={`autocomplete ${className}`}>
+    <div
+      data-testid="autocomplete"
+      class={classNames('autocomplete', className)}
+    >
       <div class="input">
         <span class="material-symbols-outlined">search</span>
         <input

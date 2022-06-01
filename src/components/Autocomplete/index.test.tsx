@@ -70,4 +70,11 @@ describe('<Autocomplete />', () => {
 
     expect(getAllByTestId('custom-item')).toHaveLength(2);
   });
+
+  it('adds CSS classes to root element if className is provided', () => {
+    const className = 'test-class';
+    const { getByTestId } = renderAutocomplete({ class: className });
+
+    expect(getByTestId('autocomplete')).toHaveClass(className);
+  });
 });
