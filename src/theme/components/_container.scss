@@ -1,0 +1,8 @@
+@use "../utils/variables";
+
+@each $breakpoint, $threshold in variables.$breakpoints {
+  .container-#{$breakpoint} {
+    max-width: $threshold;
+    margin: 0 auto;
+  }
+}
