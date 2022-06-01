@@ -1,8 +1,10 @@
-@use "../utils/variables";
+@use '../utils/variables';
+@use '../utils/mixins';
 
 @each $breakpoint, $threshold in variables.$breakpoints {
   .container-#{$breakpoint} {
     max-width: $threshold;
     margin: 0 auto;
+    padding: 0 mixins.spacing(2);
   }
 }
