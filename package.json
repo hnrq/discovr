@@ -19,6 +19,7 @@
     "babel-jest": "^28.1.0",
     "babel-preset-jest": "^28.0.2",
     "babel-preset-solid": "^1.4.2",
+    "classnames": "^2.3.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jsdom": "^19.0.0",

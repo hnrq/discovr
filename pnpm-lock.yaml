@@ -10,6 +10,7 @@ specifiers:
   babel-jest: ^28.1.0
   babel-preset-jest: ^28.0.2
   babel-preset-solid: ^1.4.2
+  classnames: ^2.3.1
   jest: ^28.1.0
   jest-environment-jsdom: ^28.1.0
   jsdom: ^19.0.0
@@ -37,6 +38,7 @@ devDependencies:
   babel-jest: 28.1.0_@babel+core@7.18.2
   babel-preset-jest: 28.0.2_@babel+core@7.18.2
   babel-preset-solid: 1.4.2_@babel+core@7.18.2
+  classnames: 2.3.1
   jest: 28.1.0
   jest-environment-jsdom: 28.1.0
   jsdom: 19.0.0
@@ -2184,6 +2186,10 @@ packages:
 
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
+    dev: true
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
     dev: true
 
   /cliui/7.0.4:
