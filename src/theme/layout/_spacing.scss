@@ -1,0 +1,32 @@
+@use '../utils/mixins';
+
+@for $i from 0 through 6 {
+  $spacing-types: 'margin', 'padding';
+  $edges: 'top', 'right', 'bottom', 'left';
+  $axes: 'x', 'y';
+  $spacing: mixins.spacing($i);
+
+  @each $spacing-type in $spacing-types {
+    $initial: str-slice($spacing-type, 1, 1);
+
+    .#{$initial}-#{$i} {
+      #{$spacing-type}: $spacing;
+    }
+
+    @each $axis in $axes {
+      .#{$initial}#{$axis}-#{$i} {
+        @if $axis == 'x' {
+          @include mixins.spacing-x($spacing-type, $spacing);
+        } @else {
+          @include mixins.spacing-y($spacing-type, $spacing);
+        }
+      }
+    }
+
+    @each $edge in $edges {
+      .#{$initial}#{str-slice($edge, 1, 1)}-#{$i} {
+        #{$spacing-type}-#{$edge}: $spacing;
+      }
+    }
+  }
+}

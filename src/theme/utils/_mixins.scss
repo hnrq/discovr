@@ -1,4 +1,4 @@
-@use "variables";
+@use 'variables';
 
 @mixin generate-emphasis($base-color) {
   @each $emphasis, $alpha in variables.$emphasis {
@@ -12,10 +12,36 @@
   }
 }
 
-@mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+@mixin breakpoint-up($breakpoint) {
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    @media only screen and (min-width: map-get(variables.$breakpoints, $breakpoint)) {
       @content;
+    }
+  } @else {
+    @warn "No `#{$breakpoint}` breakpoint. Available breakpoints are: #{map-keys(variables.$breakpoints)}.";
+  }
+}
+
+@mixin breakpoint-down($breakpoint) {
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    @media only screen and (max-width: map-get(variables.$breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "No `#{$breakpoint}` breakpoint. Available breakpoints are: #{map-keys(variables.$breakpoints)}.";
+  }
+}
+
+@mixin breakpoint-only($breakpoint) {
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    @if $breakpoint == 'xl' {
+      @media only screen and (min-width: map-get(variables.$breakpoints, $breakpoint)) {
+        @content;
+      }
+    } @else {
+      @media only screen and (min-width: map-get(variables.$breakpoints, $breakpoint)) and (max-width: nth(variables.$breakpoints, index(variables.$breakpoints, $breakpoint) + 1)) {
+        @content;
+      }
     }
   } @else {
     @warn "No `#{$breakpoint}` breakpoint. Available breakpoints are: #{map-keys($breakpoints)}.";
@@ -24,4 +50,14 @@
 
 @function spacing($multiplier) {
   @return calc(var(--base-spacing) * #{$multiplier});
+}
+
+@mixin spacing-x($spacing-type, $size) {
+  #{$spacing-type}-left: $size;
+  #{$spacing-type}-right: $size;
+}
+
+@mixin spacing-y($spacing-type, $size) {
+  #{$spacing-type}-top: $size;
+  #{$spacing-type}-bottom: $size;
 }
