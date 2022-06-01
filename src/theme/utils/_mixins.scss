@@ -1,0 +1,27 @@
+@use "variables";
+
+@mixin generate-emphasis($base-color) {
+  @each $emphasis, $alpha in variables.$emphasis {
+    --color-#{$emphasis}: #{hsla($base-color, $alpha)};
+  }
+}
+
+@mixin generate-color($color-name, $base-color) {
+  @for $i from 1 through 10 {
+    --color-#{$color-name}-#{$i}0: #{hsla($base-color, $i * 10%, 100%)};
+  }
+}
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "No `#{$breakpoint}` breakpoint. Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@function spacing($multiplier) {
+  @return calc(var(--base-spacing) * #{$multiplier});
+}
