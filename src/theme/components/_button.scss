@@ -1,0 +1,48 @@
+@use "../utils/mixins";
+
+button {
+  border: none;
+  font-family: var(--body-font);
+  padding: mixins.spacing(1) mixins.spacing(2);
+  font-weight: bold;
+  text-transform: uppercase;
+  box-sizing: content-box;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.contained {
+    --translate-distance: 4px;
+    background-color: var(--color-primary-50);
+    transform: translateY(calc(var(--translate-distance) * -1));
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+    box-shadow: 0px var(--translate-distance) 0px 0px var(--color-primary-30);
+    &:hover {
+      transform: translateY(calc((var(--translate-distance) + 2px) * -1));
+      box-shadow: 0px calc(var(--translate-distance) + 2px) 0px 0px
+        var(--color-primary-30);
+    }
+    &:active {
+      transform: translateY(0%);
+      box-shadow: 0px 0px 0px 0px var(--color-primary-30);
+    }
+  }
+
+  &.link {
+    background: none;
+    color: var(--color-primary-50);
+  }
+
+  &.icon-button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary-50);
+    background: none;
+  }
+}
