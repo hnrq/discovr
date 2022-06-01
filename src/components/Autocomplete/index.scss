@@ -1,0 +1,26 @@
+@use "../../theme/utils/mixins";
+
+.autocomplete {
+  & .input {
+    background-color: var(--color-low);
+    padding: mixins.spacing(2) mixins.spacing(4);
+    display: flex;
+    column-gap: mixins.spacing(1);
+    & input {
+      flex: 1;
+      border: none;
+      color: var(--color-high);
+      font-family: var(--body-font);
+      font-weight: bold;
+      background: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.light .autocomplete > .input {
+  background: none;
+  box-shadow: var(--drop-shadow);
+}
