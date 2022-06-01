@@ -1,0 +1,19 @@
+@use "../utils/variables";
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-family: var(--heading-font);
+    font-size: nth(variables.$heading-sizes, $i);
+  }
+}
+
+mark {
+  background-color: var(--color-primary-50);
+  color: var(--color-high);
+}
+
+p {
+  &.subtitle {
+    color: var(--color-medium);
+  }
+}
