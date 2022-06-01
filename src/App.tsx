@@ -22,11 +22,18 @@ const App: Component = () => {
         </span>
       </button>
       <Vinyl />
-      <h1 class="header">
+      <h1 class="header mb-0">
         TIRED OF HEARING THE SAME <mark>S***</mark>?
       </h1>
-      <p>We got your back. Just search for a song</p>
-      <Autocomplete items={[]} query={query} setQuery={setQuery} autoFocus />
+      <p class="subtitle mt-1">We got your back. Just search for a song</p>
+      <Autocomplete
+        placeholder="Search for a song..."
+        items={[]}
+        class="mt-4"
+        query={query}
+        setQuery={setQuery}
+        autoFocus
+      />
     </div>
   );
 };

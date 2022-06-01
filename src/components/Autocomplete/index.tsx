@@ -16,6 +16,7 @@ export interface AutocompleteProps {
   setQuery: Setter<string>;
   items?: Store<unknown[]>;
   autoFocus?: boolean;
+  class?: string;
   renderItem?: (item: unknown) => JSX.Element;
   placeholder?: string;
 }
@@ -23,6 +24,7 @@ export interface AutocompleteProps {
 const Autocomplete: Component<AutocompleteProps> = ({
   query,
   setQuery,
+  class: className,
   autoFocus = false,
   items = [] as string[],
   renderItem = (item: unknown) => <li>{item.toString()}</li>,
@@ -31,7 +33,7 @@ const Autocomplete: Component<AutocompleteProps> = ({
   const [focused, setFocused] = createSignal(autoFocus);
 
   return (
-    <div class="autocomplete">
+    <div class={`autocomplete ${className}`}>
       <div class="input">
         <span class="material-symbols-outlined">search</span>
         <input
