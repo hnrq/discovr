@@ -13,9 +13,6 @@
 }
 
 html {
-  @include mixins.breakpoint-down('md') {
-    font-size: 16px;
-  }
   // Add theme-specific styling here
   &.dark {
     --background-color: hsl(0deg 0% 0%);
@@ -29,6 +26,12 @@ html {
     @include mixins.generate-emphasis(var(--text-color));
   }
 
+  @include mixins.breakpoint-down('md') {
+    font-size: 16px;
+  }
+
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
   font-family: var(--body-font);
   font-size: 18px;
   background: var(--background-color);
@@ -37,4 +40,10 @@ html {
 
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 48;
+}
+
+svg,
+g,
+path {
+  transition: all 0.2s ease-in-out;
 }
