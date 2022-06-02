@@ -16,7 +16,7 @@
       }
     }
   },
-  "plugins": ["solid", "@typescript-eslint", "simple-import-sort"],
+  "plugins": ["solid", "@typescript-eslint", "simple-import-sort", "import"],
   "extends": [
     "eslint:recommended",
     "prettier",
