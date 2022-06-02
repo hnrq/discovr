@@ -4,6 +4,7 @@ specifiers:
   '@babel/core': ^7.18.2
   '@babel/preset-env': ^7.18.2
   '@babel/preset-typescript': ^7.17.12
+  '@solid-primitives/scheduled': ^1.0.0
   '@testing-library/jest-dom': ^5.16.4
   '@types/jest': ^27.5.1
   '@types/testing-library__jest-dom': ^5.14.3
@@ -41,6 +42,7 @@ devDependencies:
   '@babel/core': 7.18.2
   '@babel/preset-env': 7.18.2_@babel+core@7.18.2
   '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
+  '@solid-primitives/scheduled': 1.0.0_solid-js@1.4.2
   '@testing-library/jest-dom': 5.16.4
   '@types/jest': 27.5.1
   '@types/testing-library__jest-dom': 5.14.3
@@ -1669,6 +1671,14 @@ packages:
     resolution: {integrity: sha512-BPS4ynJW/o92PUR4wgriz2Ud5gpST5vz6GQfMixEDK0Z8ZCUv2M7SkBLykH56T++Xs+8ln9zTGbOvNGIe02/jw==}
     dependencies:
       '@sinonjs/commons': 1.8.3
+    dev: true
+
+  /@solid-primitives/scheduled/1.0.0_solid-js@1.4.2:
+    resolution: {integrity: sha512-FfzYoAkFCRGBuCuXF8G7fU4J4SK9PhKbwxZvzqk+VVBcowPS1eGlLAtlqW/29paSKlUSxuLuhZxq1sPzwmuvoQ==}
+    peerDependencies:
+      solid-js: ^1.4.0
+    dependencies:
+      solid-js: 1.4.2
     dev: true
 
   /@testing-library/dom/7.31.2:
