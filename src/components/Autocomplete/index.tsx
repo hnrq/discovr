@@ -6,8 +6,10 @@ import {
   Show,
   createSignal,
   JSX,
+  mergeProps,
+  Resource,
 } from 'solid-js';
-import { Store } from 'solid-js/store';
+
 import classNames from 'classnames';
 
 import './index.scss';
@@ -15,44 +17,38 @@ import './index.scss';
 export interface AutocompleteProps {
   query: Accessor<string>;
   setQuery: Setter<string>;
-  items?: Store<unknown[]>;
+  items: Resource<unknown[]>;
   autoFocus?: boolean;
   class?: string;
   renderItem?: (item: unknown) => JSX.Element;
   placeholder?: string;
 }
 
-const Autocomplete: Component<AutocompleteProps> = ({
-  query,
-  setQuery,
-  class: className,
-  autoFocus = false,
-  items = [] as string[],
-  renderItem = (item: unknown) => <li>{item.toString()}</li>,
-  placeholder = '',
-}) => {
-  const [focused, setFocused] = createSignal(autoFocus);
+const Autocomplete: Component<AutocompleteProps> = (_props) => {
+  const props = mergeProps({ autoFocus: false, placeholder: '' }, _props);
+  // eslint-disable-next-line solid/reactivity
+  const [focused, setFocused] = createSignal(props.autoFocus);
 
   return (
     <div
       data-testid="autocomplete"
-      class={classNames('autocomplete', className)}
+      class={classNames('autocomplete', props.class)}
     >
       <div class="input">
         <span class="material-symbols-outlined">search</span>
         <input
-          value={query()}
-          onKeyUp={(e) => setQuery(e.currentTarget.value)}
+          value={props.query()}
+          onKeyUp={(e) => props.setQuery(e.currentTarget.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           autocomplete="false"
-          autofocus={autoFocus}
-          placeholder={placeholder}
+          autofocus={props.autoFocus}
+          placeholder={props.placeholder}
         />
       </div>
-      <Show when={items.length > 0 && focused()}>
-        <div class="dropdown">
-          <For each={items}>{(item) => renderItem(item)}</For>
+      <Show when={props?.items()?.length > 0 && focused()}>
+        <div class="dropdown mt-2">
+          <For each={props.items()}>{props.renderItem}</For>
         </div>
       </Show>
     </div>

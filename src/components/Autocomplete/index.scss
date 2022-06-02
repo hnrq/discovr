@@ -1,9 +1,9 @@
-@use "../../theme/utils/mixins";
+@use '../../theme/utils/mixins';
 
 .autocomplete {
   & .input {
     background-color: var(--color-low);
-    padding: mixins.spacing(2) mixins.spacing(4);
+    padding: mixins.spacing(2);
     display: flex;
     column-gap: mixins.spacing(1);
     & input {
@@ -18,9 +18,38 @@
       }
     }
   }
+  & .dropdown {
+    display: flex;
+    background-color: var(--color-low);
+    flex-direction: column;
+    height: 360px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: none;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-medium);
+      &:hover {
+        background: var(--color-high);
+      }
+    }
+  }
 }
 
-.light .autocomplete > .input {
-  background: none;
-  box-shadow: var(--drop-shadow);
+.light .autocomplete {
+  & > .input {
+    background: none;
+    box-shadow: var(--drop-shadow);
+  }
+  & .dropdown {
+    background: none;
+    box-shadow: var(--drop-shadow);
+  }
 }

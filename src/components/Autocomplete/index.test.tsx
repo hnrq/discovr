@@ -1,14 +1,20 @@
-import { createSignal } from 'solid-js';
+import { createResource, createSignal } from 'solid-js';
+
 import { render, fireEvent } from 'solid-testing-library';
+
 import Autocomplete, { AutocompleteProps } from '.';
 
 const renderAutocomplete = (props: Partial<AutocompleteProps>) => {
   const [query, setQuery] = createSignal('');
+  const [items] = createResource(() => ['item 1', 'item 2']);
+
   return render(() => (
     <Autocomplete
       query={query}
       setQuery={setQuery}
       placeholder="Search..."
+      items={items}
+      renderItem={(item: string) => <div>{item}</div>}
       {...props}
     />
   ));
@@ -32,7 +38,8 @@ describe('<Autocomplete />', () => {
 
   it('renders the items if there is any and the input is focused', () => {
     const placeholder = 'Search...';
-    const items = ['item 1', 'item 2'];
+    const itemsResponse = ['1', '2'];
+    const [items] = createResource(() => itemsResponse);
     const { getByPlaceholderText, getByText } = renderAutocomplete({
       items,
       placeholder,
@@ -40,35 +47,37 @@ describe('<Autocomplete />', () => {
 
     fireEvent.focus(getByPlaceholderText(placeholder) as HTMLInputElement);
 
-    items.forEach((item) => {
+    itemsResponse.forEach((item) => {
       expect(getByText(item)).toBeInTheDocument();
     });
   });
 
   it('hides the dropdown if the input is blurred', () => {
     const placeholder = 'Search...';
-    const items = ['item 1', 'item 2'];
+    const itemsResponse = ['1', '2'];
+    const [items] = createResource(() => itemsResponse);
     const { queryByText } = renderAutocomplete({
       items,
       placeholder,
     });
 
-    items.forEach((item) => expect(queryByText(item)).not.toBeInTheDocument());
+    itemsResponse.forEach((item) =>
+      expect(queryByText(item)).not.toBeInTheDocument()
+    );
   });
 
-  it('receives a custom renderItem function', () => {
+  it('receives a custom renderItem function', async () => {
     const placeholder = 'Search...';
-    const items = ['item 1', 'item 2'];
-    const { getAllByTestId } = renderAutocomplete({
+    const itemsResponse = ['1', '2'];
+    const [items] = createResource(() => itemsResponse);
+    const { findAllByTestId } = renderAutocomplete({
       items,
       placeholder,
       autoFocus: true,
-      renderItem: (item: string) => (
-        <div data-testid="custom-item">{item.toString()}</div>
-      ),
+      renderItem: (item: string) => <div data-testid="custom-item">{item}</div>,
     });
 
-    expect(getAllByTestId('custom-item')).toHaveLength(2);
+    await expect(await findAllByTestId('custom-item')).toHaveLength(2);
   });
 
   it('adds CSS classes to root element if className is provided', () => {
