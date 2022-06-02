@@ -1,5 +1,8 @@
 import { Component, Show } from 'solid-js';
+
 import classNames from 'classnames';
+
+import './index.scss';
 
 export interface ListItemProps {
   title: string;
@@ -9,26 +12,19 @@ export interface ListItemProps {
   onClick?: () => void;
 }
 
-const ListItem: Component<ListItemProps> = ({
-  title,
-  subtitle,
-  imageUrl,
-  onClick = () => {},
-  class: className,
-}) => (
+const ListItem: Component<ListItemProps> = (props) => (
   <div
-    class={classNames('list-item', className)}
+    class={classNames('list-item px-1', props.class)}
     data-testid="list-item"
-    onClick={onClick}
+    onClick={() => props.onClick?.()}
   >
-    <Show when={imageUrl !== undefined}>
-      <img src={imageUrl} alt="" />
+    <Show when={props.imageUrl !== undefined}>
+      <img src={props.imageUrl} alt="" class="my-2" />
     </Show>
-    <div class="content">
-      <p class="title">{title}</p>
-      <p class="subtitle">{subtitle}</p>
+    <div class="content ml-3">
+      <span class="title">{props.title}</span>
+      <span class="subtitle">{props.subtitle}</span>
     </div>
   </div>
 );
-
 export default ListItem;
