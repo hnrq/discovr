@@ -15,6 +15,7 @@
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-typescript": "^7.17.12",
+    "@solid-primitives/intersection-observer": "^1.3.0",
     "@solid-primitives/scheduled": "^1.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@types/jest": "^27.5.1",
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-solid": "^0.6.0",
+    "gsap": "^3.10.4",
     "husky": "^8.0.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
@@ -37,6 +39,7 @@
     "lint-staged": "^13.0.0",
     "regenerator-runtime": "^0.13.9",
     "sass": "^1.52.1",
+    "solid-app-router": "^0.3.3",
     "solid-jest": "^0.2.0",
     "solid-testing-library": "^0.3.0",
     "typescript": "^4.6.4",
@@ -54,7 +57,7 @@
       "<rootDir>/jest-setup.ts"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|less|scss)$": "babel-jest"
+      "^.+\\.(css|less|scss|svg)$": "babel-jest"
     }
   },
   "lint-staged": {

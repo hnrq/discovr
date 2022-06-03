@@ -30,8 +30,6 @@ html {
     font-size: 16px;
   }
 
-  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-
   font-family: var(--body-font);
   font-size: 18px;
   background: var(--background-color);
@@ -42,8 +40,32 @@ html {
   font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 48;
 }
 
-svg,
-g,
-path {
-  transition: all 0.2s ease-in-out;
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }

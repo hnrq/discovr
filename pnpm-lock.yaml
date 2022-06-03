@@ -4,6 +4,7 @@ specifiers:
   '@babel/core': ^7.18.2
   '@babel/preset-env': ^7.18.2
   '@babel/preset-typescript': ^7.17.12
+  '@solid-primitives/intersection-observer': ^1.3.0
   '@solid-primitives/scheduled': ^1.0.0
   '@testing-library/jest-dom': ^5.16.4
   '@types/jest': ^27.5.1
@@ -19,6 +20,7 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-simple-import-sort: ^7.0.0
   eslint-plugin-solid: ^0.6.0
+  gsap: ^3.10.4
   husky: ^8.0.0
   jest: ^28.1.0
   jest-environment-jsdom: ^28.1.0
@@ -26,6 +28,7 @@ specifiers:
   lint-staged: ^13.0.0
   regenerator-runtime: ^0.13.9
   sass: ^1.52.1
+  solid-app-router: ^0.3.3
   solid-jest: ^0.2.0
   solid-js: ^1.4.2
   solid-testing-library: ^0.3.0
@@ -42,6 +45,7 @@ devDependencies:
   '@babel/core': 7.18.2
   '@babel/preset-env': 7.18.2_@babel+core@7.18.2
   '@babel/preset-typescript': 7.17.12_@babel+core@7.18.2
+  '@solid-primitives/intersection-observer': 1.3.0_solid-js@1.4.2
   '@solid-primitives/scheduled': 1.0.0_solid-js@1.4.2
   '@testing-library/jest-dom': 5.16.4
   '@types/jest': 27.5.1
@@ -57,6 +61,7 @@ devDependencies:
   eslint-plugin-import: 2.26.0_xsmuhwqsfrjm7m3kqio7zoeziq
   eslint-plugin-simple-import-sort: 7.0.0_eslint@8.16.0
   eslint-plugin-solid: 0.6.0_utdtartgf6fqqgkivzeynh76la
+  gsap: 3.10.4
   husky: 8.0.1
   jest: 28.1.0
   jest-environment-jsdom: 28.1.0
@@ -64,6 +69,7 @@ devDependencies:
   lint-staged: 13.0.0
   regenerator-runtime: 0.13.9
   sass: 1.52.1
+  solid-app-router: 0.3.3_solid-js@1.4.2
   solid-jest: 0.2.0_cls56o6vbiateakwn33a47skri
   solid-testing-library: 0.3.0_solid-js@1.4.2
   typescript: 4.6.4
@@ -1673,10 +1679,27 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
+  /@solid-primitives/intersection-observer/1.3.0_solid-js@1.4.2:
+    resolution: {integrity: sha512-A0I/fmx7qBx4z7m7a1gEwdjlpDeRIu/OHMnZ6DKvuwV07r58bSAJ5LHdrkR4dPRa4U9HO359JRUKVUfe4l4ZUA==}
+    peerDependencies:
+      solid-js: ^1.3.1
+    dependencies:
+      '@solid-primitives/utils': 1.5.2_solid-js@1.4.2
+      solid-js: 1.4.2
+    dev: true
+
   /@solid-primitives/scheduled/1.0.0_solid-js@1.4.2:
     resolution: {integrity: sha512-FfzYoAkFCRGBuCuXF8G7fU4J4SK9PhKbwxZvzqk+VVBcowPS1eGlLAtlqW/29paSKlUSxuLuhZxq1sPzwmuvoQ==}
     peerDependencies:
       solid-js: ^1.4.0
+    dependencies:
+      solid-js: 1.4.2
+    dev: true
+
+  /@solid-primitives/utils/1.5.2_solid-js@1.4.2:
+    resolution: {integrity: sha512-dZUHjzasuqS2lDO+PQCY1+jFmtWHlaP3tUvkX1Jr06LI/Ipa2P/ZNVSvuIoqQ0Bg+Ny27LvtrXxflZNeGtptvA==}
+    peerDependencies:
+      solid-js: ^1.3.1
     dependencies:
       solid-js: 1.4.2
     dev: true
@@ -3613,6 +3636,10 @@ packages:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
     dev: true
 
+  /gsap/3.10.4:
+    resolution: {integrity: sha512-6QatdkKxXCMfvCW4rM++0RqyLQAzFX5nwl3yHS0XPgkZBkiSEY3VZVbMltrdtsbER/xZonLtyHt684wRp4erlQ==}
+    dev: true
+
   /has-bigints/1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
     dev: true
@@ -5461,6 +5488,14 @@ packages:
     dependencies:
       ansi-styles: 6.1.0
       is-fullwidth-code-point: 4.0.0
+    dev: true
+
+  /solid-app-router/0.3.3_solid-js@1.4.2:
+    resolution: {integrity: sha512-JEn0gi6q8Pq9M2Ml3CLeNzenxuBrOrQg4aQyeIZTNjOAeEil/9YiaAJk+US78sIdVcqflTneN5KZgJMIGJ0rFQ==}
+    peerDependencies:
+      solid-js: ^1.3.5
+    dependencies:
+      solid-js: 1.4.2
     dev: true
 
   /solid-jest/0.2.0_cls56o6vbiateakwn33a47skri:
