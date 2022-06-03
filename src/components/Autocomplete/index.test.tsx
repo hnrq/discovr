@@ -36,34 +36,18 @@ describe('<Autocomplete />', () => {
     expect(setQuery).toHaveBeenCalledWith(value);
   });
 
-  it('renders the items if there is any and the input is focused', () => {
+  it('renders the items if provided', () => {
     const placeholder = 'Search...';
     const itemsResponse = ['1', '2'];
     const [items] = createResource(() => itemsResponse);
-    const { getByPlaceholderText, getByText } = renderAutocomplete({
+    const { getByText } = renderAutocomplete({
       items,
       placeholder,
     });
-
-    fireEvent.focus(getByPlaceholderText(placeholder) as HTMLInputElement);
 
     itemsResponse.forEach((item) => {
       expect(getByText(item)).toBeInTheDocument();
     });
-  });
-
-  it('hides the dropdown if the input is blurred', () => {
-    const placeholder = 'Search...';
-    const itemsResponse = ['1', '2'];
-    const [items] = createResource(() => itemsResponse);
-    const { queryByText } = renderAutocomplete({
-      items,
-      placeholder,
-    });
-
-    itemsResponse.forEach((item) =>
-      expect(queryByText(item)).not.toBeInTheDocument()
-    );
   });
 
   it('receives a custom renderItem function', async () => {
@@ -86,4 +70,6 @@ describe('<Autocomplete />', () => {
 
     expect(getByTestId('autocomplete')).toHaveClass(className);
   });
+
+  // TODO: @hnrq test Infinite Scroll once SVG is supported by solid-testing-library
 });

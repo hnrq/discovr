@@ -1,16 +1,19 @@
+/* eslint-disable solid/reactivity */
 import {
   Accessor,
   Component,
   For,
   Setter,
   Show,
-  createSignal,
   JSX,
   mergeProps,
   Resource,
 } from 'solid-js';
 
+import { createViewportObserver } from '@solid-primitives/intersection-observer';
 import classNames from 'classnames';
+
+import Spinner from 'assets/common/vinyl-spinner.svg';
 
 import './index.scss';
 
@@ -22,12 +25,17 @@ export interface AutocompleteProps {
   class?: string;
   renderItem?: (item: unknown) => JSX.Element;
   placeholder?: string;
+  infiniteScroll?: {
+    threshold: number;
+    onLoadMore: () => void;
+  };
 }
 
 const Autocomplete: Component<AutocompleteProps> = (_props) => {
   const props = mergeProps({ autoFocus: false, placeholder: '' }, _props);
-  // eslint-disable-next-line solid/reactivity
-  const [focused, setFocused] = createSignal(props.autoFocus);
+  const [observer] = createViewportObserver([], {
+    threshold: props.infiniteScroll?.threshold ?? 1,
+  });
 
   return (
     <div
@@ -39,16 +47,24 @@ const Autocomplete: Component<AutocompleteProps> = (_props) => {
         <input
           value={props.query()}
           onKeyUp={(e) => props.setQuery(e.currentTarget.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
           autocomplete="false"
           autofocus={props.autoFocus}
           placeholder={props.placeholder}
         />
       </div>
-      <Show when={props?.items()?.length > 0 && focused()}>
-        <div class="dropdown mt-2">
+      <Show when={props.items()?.length > 0}>
+        <div data-testid="dropdown" class="dropdown mt-2" use:observer>
           <For each={props.items()}>{props.renderItem}</For>
+          <Show when={props.infiniteScroll !== undefined}>
+            <div
+              use:observer={(el) => {
+                if (el.isIntersecting) props.infiniteScroll?.onLoadMore?.();
+              }}
+              class="py-2"
+            >
+              <Spinner />
+            </div>
+          </Show>
         </div>
       </Show>
     </div>
