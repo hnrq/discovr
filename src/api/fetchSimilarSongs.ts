@@ -8,22 +8,24 @@ export interface Song {
 }
 
 export interface SongInput {
-  query: string;
-  page: number;
+  trackName: string;
+  artist: string;
+  mbid: string;
 }
 
-const fetchSongs = async (args: SongInput): Promise<Song[]> => {
+const fetchSimilarSongs = async (args: SongInput): Promise<Song[]> => {
   try {
     const response = await (
       await fetch(
         '/api/?' +
           new URLSearchParams({
-            method: 'track.search',
-            track: args.query,
+            method: 'track.getsimilar',
+            track: args.trackName,
+            artist: args.artist,
+            mbid: args.mbid,
             api_key: import.meta.env.VITE_API_KEY,
             format: 'json',
             limit: '10',
-            page: args.page.toString(),
           })
       )
     ).json();
@@ -34,4 +36,4 @@ const fetchSongs = async (args: SongInput): Promise<Song[]> => {
   }
 };
 
-export default fetchSongs;
+export default fetchSimilarSongs;
