@@ -17,12 +17,6 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
-      '/musicbrainz': {
-        target: 'http://musicbrainz.org/ws/2',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/musicbrainz/, ''),
-      },
     },
   },
 });
