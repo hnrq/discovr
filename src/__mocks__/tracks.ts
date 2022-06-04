@@ -1,4 +1,4 @@
-import { Track } from 'api/fetchTrack';
+import Track from 'types/track';
 
 const track: Track[] = [
   {

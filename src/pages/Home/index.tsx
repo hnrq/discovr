@@ -5,18 +5,17 @@ import {
   createEffect,
   createMemo,
   on,
-  useContext,
 } from 'solid-js';
 
 import { debounce } from '@solid-primitives/scheduled';
 import { gsap } from 'gsap';
 import { useNavigate } from 'solid-app-router';
 
-import fetchTracks, { Track } from 'api/fetchTracks';
+import fetchTracks from 'api/fetchTracks';
 import Vinyl from 'assets/common/vinyl.svg';
 import Autocomplete from 'components/Autocomplete';
 import ListItem from 'components/ListItem';
-import { ThemeContext } from 'context/theme';
+import Track from 'types/track';
 
 import 'theme/index.scss';
 
@@ -29,7 +28,6 @@ declare module 'solid-js' {
 }
 
 const Home: Component = () => {
-  const [theme, setTheme] = useContext(ThemeContext);
   const [query, setQuery] = createSignal('');
   const [debouncedQuery, setDebouncedQuery] = createSignal('');
   const trigger = debounce((value: string) => setDebouncedQuery(value), 250);
@@ -40,7 +38,7 @@ const Home: Component = () => {
     page: page(),
   }));
 
-  const [Tracks, { mutate }] = createResource<
+  const [tracks, { mutate }] = createResource<
     Track[],
     { query: string; page: number }
   >(
@@ -69,20 +67,7 @@ const Home: Component = () => {
   );
 
   return (
-    <div class="container-sm" style={{ 'text-align': 'center' }}>
-      <button
-        class="icon-button"
-        style={{ 'margin-left': 'auto' }}
-        onClick={() =>
-          setTheme((currentTheme) =>
-            currentTheme === 'light' ? 'dark' : 'light'
-          )
-        }
-      >
-        <span class="material-symbols-outlined">
-          {theme() === 'light' ? 'light_mode' : 'dark_mode'}
-        </span>
-      </button>
+    <>
       <Vinyl />
       <div class="content" use:transition>
         <h1 class="header mb-0">
@@ -92,7 +77,7 @@ const Home: Component = () => {
         <div>
           <Autocomplete
             placeholder="Search for a Track..."
-            items={Tracks}
+            items={tracks}
             class="mt-4"
             query={query}
             setQuery={setQuery}
@@ -100,16 +85,16 @@ const Home: Component = () => {
               threshold: 0.9,
               onLoadMore: () => setPage((currentPage) => currentPage + 1),
             }}
-            renderItem={(Track: Track) => (
+            renderItem={(track: Track) => (
               <ListItem
-                imageUrl={Track.image[0]['#text']}
-                title={Track.name}
-                subtitle={Track.artist}
+                imageUrl={track.image[0]['#text']}
+                title={track.name}
+                subtitle={track.artist}
                 onClick={() => {
                   navigate(
                     `/similar?${new URLSearchParams({
-                      track: Track.name,
-                      artist: Track.artist,
+                      track: track.name,
+                      artist: track.artist,
                     })}`
                   );
                 }}
@@ -119,7 +104,7 @@ const Home: Component = () => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

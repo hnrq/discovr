@@ -1,16 +1,8 @@
-export interface Track {
-  name: string;
-  artist: string;
-  url: string;
-  streamable: number;
-  listeners: number;
-  image: string;
-}
+import Track from 'types/track';
 
 export interface TrackInput {
-  trackName: string;
+  track: string;
   artist: string;
-  mbid: string;
 }
 
 const fetchSimilarTracks = async (args: TrackInput): Promise<Track[]> => {
@@ -20,9 +12,8 @@ const fetchSimilarTracks = async (args: TrackInput): Promise<Track[]> => {
         '/api/?' +
           new URLSearchParams({
             method: 'track.getsimilar',
-            track: args.trackName,
+            track: args.track,
             artist: args.artist,
-            mbid: args.mbid,
             api_key: import.meta.env.VITE_API_KEY,
             format: 'json',
             limit: '10',
