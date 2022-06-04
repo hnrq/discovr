@@ -1,7 +1,7 @@
 {
   "name": "discovr",
   "version": "0.0.1",
-  "description": "Find similar songs",
+  "description": "Find similar tracks",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

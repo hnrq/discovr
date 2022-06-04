@@ -12,7 +12,7 @@ import { debounce } from '@solid-primitives/scheduled';
 import { gsap } from 'gsap';
 import { useNavigate } from 'solid-app-router';
 
-import fetchSongs, { Song } from 'api/fetchSongs';
+import fetchTracks, { Track } from 'api/fetchTracks';
 import Vinyl from 'assets/common/vinyl.svg';
 import Autocomplete from 'components/Autocomplete';
 import ListItem from 'components/ListItem';
@@ -40,13 +40,13 @@ const Home: Component = () => {
     page: page(),
   }));
 
-  const [songs, { mutate }] = createResource<
-    Song[],
+  const [Tracks, { mutate }] = createResource<
+    Track[],
     { query: string; page: number }
   >(
     queryParams,
     async (args, { value }) =>
-      args.query ? [...value, ...(await fetchSongs(args))] : [],
+      args.query ? [...value, ...(await fetchTracks(args))] : [],
     { initialValue: [] }
   );
 
@@ -88,11 +88,11 @@ const Home: Component = () => {
         <h1 class="header mb-0">
           TIRED OF HEARING THE SAME <mark>S***</mark>?
         </h1>
-        <p class="subtitle mt-1">We got your back. Just search for a song</p>
+        <p class="subtitle mt-1">We got your back. Just search for a Track</p>
         <div>
           <Autocomplete
-            placeholder="Search for a song..."
-            items={songs}
+            placeholder="Search for a Track..."
+            items={Tracks}
             class="mt-4"
             query={query}
             setQuery={setQuery}
@@ -100,16 +100,16 @@ const Home: Component = () => {
               threshold: 0.9,
               onLoadMore: () => setPage((currentPage) => currentPage + 1),
             }}
-            renderItem={(song: Song) => (
+            renderItem={(Track: Track) => (
               <ListItem
-                imageUrl={song.image[0]['#text']}
-                title={song.name}
-                subtitle={song.artist}
+                imageUrl={Track.image[0]['#text']}
+                title={Track.name}
+                subtitle={Track.artist}
                 onClick={() => {
                   navigate(
                     `/similar?${new URLSearchParams({
-                      track: song.name,
-                      artist: song.artist,
+                      track: Track.name,
+                      artist: Track.artist,
                     })}`
                   );
                 }}
