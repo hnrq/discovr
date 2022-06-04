@@ -9,6 +9,7 @@ import {
 } from 'solid-js';
 
 import { debounce } from '@solid-primitives/scheduled';
+import { gsap } from 'gsap';
 import { useNavigate } from 'solid-app-router';
 
 import fetchSongs, { Song } from 'api/fetchSongs';
@@ -18,6 +19,14 @@ import ListItem from 'components/ListItem';
 import { ThemeContext } from 'context/theme';
 
 import 'theme/index.scss';
+
+declare module 'solid-js' {
+  namespace JSX {
+    interface Directives {
+      transition: unknown;
+    }
+  }
+}
 
 const Home: Component = () => {
   const [theme, setTheme] = useContext(ThemeContext);
@@ -40,6 +49,15 @@ const Home: Component = () => {
       args.query ? [...value, ...(await fetchSongs(args))] : [],
     { initialValue: [] }
   );
+
+  const transition = (element: Element) => {
+    gsap.from(element.children, {
+      delay: 0.2,
+      opacity: 0,
+      duration: 1,
+      stagger: 1,
+    });
+  };
 
   createEffect(() => trigger(query()));
 
@@ -66,37 +84,41 @@ const Home: Component = () => {
         </span>
       </button>
       <Vinyl />
-      <h1 class="header mb-0">
-        TIRED OF HEARING THE SAME <mark>S***</mark>?
-      </h1>
-      <p class="subtitle mt-1">We got your back. Just search for a song</p>
-      <Autocomplete
-        placeholder="Search for a song..."
-        items={songs}
-        class="mt-4"
-        query={query}
-        setQuery={setQuery}
-        infiniteScroll={{
-          threshold: 0.9,
-          onLoadMore: () => setPage((currentPage) => currentPage + 1),
-        }}
-        renderItem={(song: Song) => (
-          <ListItem
-            imageUrl={song.image[0]['#text']}
-            title={song.name}
-            subtitle={song.artist}
-            onClick={() => {
-              navigate(
-                `/similar?${new URLSearchParams({
-                  track: song.name,
-                  artist: song.artist,
-                })}`
-              );
+      <div class="content" use:transition>
+        <h1 class="header mb-0">
+          TIRED OF HEARING THE SAME <mark>S***</mark>?
+        </h1>
+        <p class="subtitle mt-1">We got your back. Just search for a song</p>
+        <div>
+          <Autocomplete
+            placeholder="Search for a song..."
+            items={songs}
+            class="mt-4"
+            query={query}
+            setQuery={setQuery}
+            infiniteScroll={{
+              threshold: 0.9,
+              onLoadMore: () => setPage((currentPage) => currentPage + 1),
             }}
+            renderItem={(song: Song) => (
+              <ListItem
+                imageUrl={song.image[0]['#text']}
+                title={song.name}
+                subtitle={song.artist}
+                onClick={() => {
+                  navigate(
+                    `/similar?${new URLSearchParams({
+                      track: song.name,
+                      artist: song.artist,
+                    })}`
+                  );
+                }}
+              />
+            )}
+            autoFocus
           />
-        )}
-        autoFocus
-      />
+        </div>
+      </div>
     </div>
   );
 };
