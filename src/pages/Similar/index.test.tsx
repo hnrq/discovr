@@ -87,5 +87,13 @@ describe('<Similar />', () => {
         expect(await findByText(track.name)).toBeInTheDocument();
       }
     });
+
+    it('renders "No similar tracks found" message if no similar tracks are found', async () => {
+      vitest.spyOn(fetchSimilarTracks, 'default').mockResolvedValue([]);
+      const search = { track: 'Alone Again', artist: "Gilbert O' Sullivan" };
+      const { findByText } = renderSimilar(search);
+
+      expect(await findByText('No similar tracks found')).toBeInTheDocument();
+    });
   });
 });

@@ -4,6 +4,7 @@ import './index.scss';
 
 const Spinner: Component<unknown> = () => (
   <svg
+    class="spinner"
     width="32"
     height="32"
     viewBox="0 0 128 128"

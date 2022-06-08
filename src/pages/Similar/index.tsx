@@ -50,7 +50,10 @@ const Tracks: Component<Params> = (props) => {
 
   return (
     <div class="tracks" ref={tracksRef}>
-      <For each={tracks()}>
+      <For
+        each={tracks()}
+        fallback={<ErrorMessage message="No similar tracks found" />}
+      >
         {(track) => (
           <Track
             name={track.name}
