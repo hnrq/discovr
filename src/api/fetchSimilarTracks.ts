@@ -11,7 +11,7 @@ const fetchSimilarTracks = async (
   try {
     const response = await (
       await fetch(
-        '/api/?' +
+        'http://ws.audioscrobbler.com/2.0/?' +
           new URLSearchParams({
             method: 'track.getsimilar',
             track: args.track,

@@ -12,16 +12,6 @@ export default defineConfig({
   resolve: {
     conditions: ['development', 'browser'],
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://ws.audioscrobbler.com/2.0',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
   test: {
     environment: 'jsdom',
     globals: true,

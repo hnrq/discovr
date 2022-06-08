@@ -9,7 +9,7 @@ const fetchTracks = async (args: TrackInput): Promise<Track[]> => {
   try {
     const response = await (
       await fetch(
-        '/api/?' +
+        'http://ws.audioscrobbler.com/2.0/?' +
           new URLSearchParams({
             method: 'track.search',
             track: args.query,
