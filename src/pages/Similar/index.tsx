@@ -42,9 +42,9 @@ const Tracks: Component<Params> = (props) => {
     if (tracks().length > 0)
       gsap.from(q('.track'), {
         opacity: 0,
-        duration: 3,
+        duration: 1,
         delay: 1,
-        stagger: { each: 0.2 },
+        stagger: 0.2,
       });
   });
 

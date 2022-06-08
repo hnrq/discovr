@@ -1,5 +1,7 @@
 import { Component } from 'solid-js';
 
+import './index.scss';
+
 const Spinner: Component<unknown> = () => (
   <svg
     width="32"
