@@ -58,7 +58,7 @@ const Tracks: Component<Params> = (props) => {
           <Track
             name={track.name}
             artist={track.artist.name}
-            image={track.image[2]['#text']}
+            image={track.image[3]['#text']}
             url={track.url}
           />
         )}

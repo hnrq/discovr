@@ -7,10 +7,9 @@
   flex: 1;
   & .tracks {
     margin-top: mixins.spacing(2);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     gap: mixins.spacing(2);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 
   & .spinner {

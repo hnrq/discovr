@@ -15,6 +15,7 @@ const similarTracks: SimilarTrack[] = [
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
+      { '#text': 'https://img.com' },
     ],
   },
   {
@@ -24,6 +25,7 @@ const similarTracks: SimilarTrack[] = [
     streamable: 0,
     listeners: 39821,
     image: [
+      { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
@@ -39,6 +41,7 @@ const similarTracks: SimilarTrack[] = [
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
+      { '#text': 'https://img.com' },
     ],
   },
   {
@@ -48,6 +51,7 @@ const similarTracks: SimilarTrack[] = [
     streamable: 0,
     listeners: 928173,
     image: [
+      { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
@@ -63,6 +67,7 @@ const similarTracks: SimilarTrack[] = [
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
+      { '#text': 'https://img.com' },
     ],
   },
   {
@@ -75,6 +80,7 @@ const similarTracks: SimilarTrack[] = [
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
+      { '#text': 'https://img.com' },
     ],
   },
   {
@@ -84,6 +90,7 @@ const similarTracks: SimilarTrack[] = [
     streamable: 0,
     listeners: 392817,
     image: [
+      { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
@@ -103,6 +110,7 @@ const similarTracks: SimilarTrack[] = [
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
+      { '#text': 'https://img.com' },
     ],
   },
   {
@@ -115,6 +123,7 @@ const similarTracks: SimilarTrack[] = [
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
+      { '#text': 'https://img.com' },
     ],
   },
   {
@@ -124,6 +133,7 @@ const similarTracks: SimilarTrack[] = [
     streamable: 0,
     listeners: 383728,
     image: [
+      { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
@@ -140,6 +150,7 @@ const similarTracks: SimilarTrack[] = [
     streamable: 0,
     listeners: 383728,
     image: [
+      { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },
       { '#text': 'https://img.com' },

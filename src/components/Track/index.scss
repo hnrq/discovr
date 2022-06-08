@@ -3,14 +3,11 @@
 .track {
   display: flex;
   flex-direction: column;
-  row-gap: spacing(2);
-  max-width: 174px;
   text-decoration: none;
 
   & > .track-info {
     display: flex;
     flex-direction: column;
-    row-gap: spacing(1);
     text-align: left;
     margin-top: mixins.spacing(1);
     & > h5 {
