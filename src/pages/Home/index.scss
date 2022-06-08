@@ -1,0 +1,9 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  svg {
+    align-self: center;
+    justify-self: center;
+  }
+}

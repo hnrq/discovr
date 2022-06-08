@@ -1,0 +1,13 @@
+@use './theme/utils/mixins';
+
+.app {
+  min-height: calc(100vh - mixins.spacing(2));
+  display: flex;
+  flex-direction: column;
+  margin-top: mixins.spacing(4);
+  box-sizing: content-box;
+
+  .tracks {
+    margin-bottom: mixins.spacing(8);
+  }
+}

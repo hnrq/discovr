@@ -1,0 +1,22 @@
+@use '../../theme/utils/mixins';
+
+.similar-page {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  & .tracks {
+    margin-top: mixins.spacing(2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: mixins.spacing(2);
+  }
+
+  & .spinner {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
