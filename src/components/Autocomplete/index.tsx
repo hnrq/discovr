@@ -13,7 +13,7 @@ import {
 import { createViewportObserver } from '@solid-primitives/intersection-observer';
 import classNames from 'classnames';
 
-import Spinner from 'assets/common/vinyl-spinner.svg';
+import Spinner from 'components/Spinner';
 
 import './index.scss';
 

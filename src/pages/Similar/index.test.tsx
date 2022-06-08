@@ -1,44 +1,58 @@
+import { gsap } from 'gsap';
+import * as router from 'solid-app-router';
 import { render, waitFor } from 'solid-testing-library';
 
-import mockTracks from '__mocks__/tracks';
+import mockSimilarTracks from '__mocks__/similarTracks';
 import * as fetchSimilarTracks from 'api/fetchSimilarTracks';
 
 import Similar from '.';
 
 const renderSimilar = (search: { track: string; artist: string }) => {
-  global.location.search = `?${new URLSearchParams(search)}`;
-
-  return render(() => <Similar />);
+  vitest.spyOn(router, 'useSearchParams').mockReturnValue([search, () => null]);
+  return render(() => (
+    <router.Router>
+      <Similar />
+    </router.Router>
+  ));
 };
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve(mockTracks),
-  })
-) as jest.Mock;
-
 describe('<Similar />', () => {
+  beforeEach(() => {
+    vitest
+      .spyOn(gsap, 'from')
+      .mockImplementation(vitest.fn() as () => Promise<GSAPTween>);
+    vitest
+      .spyOn(gsap, 'to')
+      .mockImplementation(vitest.fn() as () => Promise<GSAPTween>);
+  });
+
   describe('Track or artist not provided or wrong', () => {
-    it('renders a "Track not found!" message if API returns 404', () => {
-      jest
+    it('renders a "Track not found" message if API returns 404', async () => {
+      vitest
         .spyOn(fetchSimilarTracks, 'default')
-        .mockRejectedValue({ status: 404 });
-      const { getByText } = renderSimilar({
+        .mockRejectedValueOnce(new Error('Track not found'));
+      const { findByText } = renderSimilar({
         track: 'hdsauidhas',
         artist: 'hdsduhsd',
       });
 
-      expect(getByText('Track not found')).toBeTruthy();
+      expect(await findByText('Track not found')).toBeInTheDocument();
     });
 
-    it('renders a "Track and artist must be provided" message if one of them is empty', () => {
+    it('renders a "Track name and artist must be provided!" message if one of them is empty', () => {
       const { getByText } = renderSimilar({ track: '', artist: '' });
 
-      expect(getByText('Track and artist must be provided')).toBeTruthy();
+      expect(getByText('Track name and artist must be provided!')).toBeTruthy();
     });
   });
 
   describe('Track and artist provided', () => {
+    beforeEach(() => {
+      vitest
+        .spyOn(fetchSimilarTracks, 'default')
+        .mockResolvedValue(mockSimilarTracks);
+    });
+
     it('renders Track name based on the search param provided', () => {
       const search = { track: 'Alone Again', artist: "Gilbert O' Sullivan" };
       const { getByText } = renderSimilar(search);
@@ -54,7 +68,9 @@ describe('<Similar />', () => {
     });
 
     it('calls fetchSimilarTracks with the track name and artist name', async () => {
-      const spy = jest.spyOn(fetchSimilarTracks, 'default');
+      const spy = vitest
+        .spyOn(fetchSimilarTracks, 'default')
+        .mockResolvedValue(mockSimilarTracks);
       const search = { track: 'Alone Again', artist: "Gilbert O' Sullivan" };
       renderSimilar(search);
 
@@ -65,13 +81,11 @@ describe('<Similar />', () => {
 
     it('renders 10 similar Tracks', async () => {
       const search = { track: 'Alone Again', artist: "Gilbert O' Sullivan" };
-      const { getByText } = renderSimilar(search);
+      const { findByText } = renderSimilar(search);
 
-      waitFor(() => {
-        mockTracks.forEach((track) => {
-          expect(getByText(track.name)).toBeInTheDocument();
-        });
-      });
+      for (const track of mockSimilarTracks) {
+        expect(await findByText(track.name)).toBeInTheDocument();
+      }
     });
   });
 });

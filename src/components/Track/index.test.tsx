@@ -25,12 +25,9 @@ describe('<Track />', () => {
     it('renders a link to the Track in Last.fm', () => {
       const url = 'https://last.fm/the-other-line';
       const name = 'The Other Line';
-      const { getByText } = renderTrack({ url, name });
+      const { getByRole } = renderTrack({ url, name });
 
-      expect(getByText(name)).toHaveProperty(
-        'href',
-        expect.stringContaining(url)
-      );
+      expect(getByRole('link')).toHaveProperty('href', url);
     });
   });
 
@@ -45,9 +42,6 @@ describe('<Track />', () => {
     const image = 'https://image.com/captainchunk-otherline.jpg';
     const { getByRole } = renderTrack({ image });
 
-    expect(getByRole('img')).toHaveProperty(
-      'src',
-      expect.stringContaining(image)
-    );
+    expect(getByRole('img')).toHaveProperty('src', image);
   });
 });

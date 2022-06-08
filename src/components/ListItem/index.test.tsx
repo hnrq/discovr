@@ -24,14 +24,11 @@ describe('<ListItem />', () => {
     const imageUrl = 'https://image.com';
     const { getByRole } = renderListItem({ imageUrl });
 
-    expect(getByRole('img')).toHaveProperty(
-      'src',
-      expect.stringContaining(imageUrl)
-    );
+    expect(getByRole('img')).toHaveProperty('src', `${imageUrl}/`);
   });
 
   it('calls onClick when clicked', () => {
-    const onClick = jest.fn();
+    const onClick = vitest.fn();
     const { getByTestId } = renderListItem({ onClick });
 
     fireEvent.click(getByTestId('list-item') as HTMLDivElement);

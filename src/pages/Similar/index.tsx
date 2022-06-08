@@ -1,35 +1,61 @@
-import { Component, createResource, For, Show, Suspense } from 'solid-js';
+import {
+  Component,
+  createResource,
+  For,
+  Show,
+  Suspense,
+  createEffect,
+  ErrorBoundary,
+} from 'solid-js';
 
-import { useParams } from 'solid-app-router';
+import { gsap } from 'gsap';
+import { useSearchParams } from 'solid-app-router';
 
 import fetchSimilarTracks from 'api/fetchSimilarTracks';
+import Spinner from 'components/Spinner';
 import Track from 'components/Track';
-import TrackType from 'types/track';
+import SimilarTrack from 'types/similarTrack';
+
+import './index.scss';
 
 interface Params {
   track?: string;
   artist?: string;
 }
 
+const ErrorMessage: Component<{ message: string }> = (props) => (
+  <div class="error">
+    <h3>{props.message}</h3>
+  </div>
+);
+
 const Tracks: Component<Params> = (props) => {
-  const [tracks] = createResource<TrackType[], Params>(
+  let tracksRef;
+  const [tracks] = createResource<SimilarTrack[], Params>(
     props,
-    async (args) =>
-      fetchSimilarTracks({
-        track: args.track,
-        artist: args.artist,
-      }),
+    fetchSimilarTracks,
     { initialValue: [] }
   );
 
+  createEffect(() => {
+    const q = gsap.utils.selector(tracksRef);
+    if (tracks().length > 0)
+      gsap.from(q('.track'), {
+        opacity: 0,
+        duration: 3,
+        delay: 1,
+        stagger: { each: 0.2 },
+      });
+  });
+
   return (
-    <div class="tracks">
+    <div class="tracks" ref={tracksRef}>
       <For each={tracks()}>
         {(track) => (
           <Track
             name={track.name}
-            artist={track.artist}
-            image={track.image[0]['#text']}
+            artist={track.artist.name}
+            image={track.image[2]['#text']}
             url={track.url}
           />
         )}
@@ -38,23 +64,34 @@ const Tracks: Component<Params> = (props) => {
   );
 };
 
-const ErrorMessage: Component = () => (
-  <div class="error">
-    <h3>Track name and artist must be provided!</h3>
-  </div>
-);
-
 const Similar: Component<unknown> = () => {
-  const params: Params = useParams();
+  const [params] = useSearchParams();
+
+  const transition = (element: Element) => {
+    gsap.from(element, { opacity: 0, duration: 1, delay: 0.2 });
+  };
 
   return (
     <div class="similar-page">
-      <Show when={params.track && params.artist} fallback={<ErrorMessage />}>
-        <h2>
-          Tracks similar to {params.track} by {params.artist}
+      <Show
+        when={params.track && params.artist}
+        fallback={
+          <ErrorMessage message="Track name and artist must be provided!" />
+        }
+      >
+        <h2 use:transition>
+          Tracks similar to <b>{params.track}</b>, by <b>{params.artist}</b>
         </h2>
-        <Suspense fallback={<div>loading...</div>}>
-          <Tracks track={params.track} artist={params.artist} />
+        <Suspense
+          fallback={
+            <div class="spinner">
+              <Spinner />
+            </div>
+          }
+        >
+          <ErrorBoundary fallback={<ErrorMessage message="Track not found" />}>
+            <Tracks track={params.track} artist={params.artist} />
+          </ErrorBoundary>
         </Suspense>
       </Show>
     </div>

@@ -6,11 +6,14 @@ import { ThemeContext } from 'context/theme';
 import Home from 'pages/Home';
 import Similar from 'pages/Similar';
 
+import 'theme/index.scss';
+import './App.scss';
+
 const App: Component = () => {
   const [theme, setTheme] = useContext(ThemeContext);
 
   return (
-    <div class="container-sm" style={{ 'text-align': 'center' }}>
+    <div class="app container-sm">
       <button
         class="icon-button"
         style={{ 'margin-left': 'auto' }}
@@ -26,7 +29,7 @@ const App: Component = () => {
       </button>
       <Routes>
         <Route path="/" component={Home} />
-        <Route path="/similar-tracks" component={Similar} />
+        <Route path="/similar" component={Similar} />
       </Routes>
     </div>
   );

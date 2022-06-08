@@ -1,11 +1,13 @@
-import Track from 'types/track';
+import SimilarTrack from 'types/similarTrack';
 
 export interface TrackInput {
   track: string;
   artist: string;
 }
 
-const fetchSimilarTracks = async (args: TrackInput): Promise<Track[]> => {
+const fetchSimilarTracks = async (
+  args: TrackInput
+): Promise<SimilarTrack[]> => {
   try {
     const response = await (
       await fetch(
@@ -20,8 +22,11 @@ const fetchSimilarTracks = async (args: TrackInput): Promise<Track[]> => {
           })
       )
     ).json();
+    if (response.error) {
+      throw new Error(response.message);
+    }
 
-    return response.results.trackmatches.track;
+    return response.similartracks.track;
   } catch (error) {
     throw new Error(error.message);
   }

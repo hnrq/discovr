@@ -17,7 +17,7 @@ import Autocomplete from 'components/Autocomplete';
 import ListItem from 'components/ListItem';
 import Track from 'types/track';
 
-import 'theme/index.scss';
+import './index.scss';
 
 declare module 'solid-js' {
   namespace JSX {
@@ -67,44 +67,42 @@ const Home: Component = () => {
   );
 
   return (
-    <>
+    <div class="home" use:transition>
       <Vinyl />
-      <div class="content" use:transition>
-        <h1 class="header mb-0">
-          TIRED OF HEARING THE SAME <mark>S***</mark>?
-        </h1>
-        <p class="subtitle mt-1">We got your back. Just search for a Track</p>
-        <div>
-          <Autocomplete
-            placeholder="Search for a Track..."
-            items={tracks}
-            class="mt-4"
-            query={query}
-            setQuery={setQuery}
-            infiniteScroll={{
-              threshold: 0.9,
-              onLoadMore: () => setPage((currentPage) => currentPage + 1),
-            }}
-            renderItem={(track: Track) => (
-              <ListItem
-                imageUrl={track.image[0]['#text']}
-                title={track.name}
-                subtitle={track.artist}
-                onClick={() => {
-                  navigate(
-                    `/similar?${new URLSearchParams({
-                      track: track.name,
-                      artist: track.artist,
-                    })}`
-                  );
-                }}
-              />
-            )}
-            autoFocus
-          />
-        </div>
+      <h1 class="header mb-0">
+        TIRED OF HEARING THE SAME <mark>S***</mark>?
+      </h1>
+      <p class="subtitle mt-1">We got your back. Just search for a Track</p>
+      <div>
+        <Autocomplete
+          placeholder="Search for a Track..."
+          items={tracks}
+          class="mt-4"
+          query={query}
+          setQuery={setQuery}
+          infiniteScroll={{
+            threshold: 0.9,
+            onLoadMore: () => setPage((currentPage) => currentPage + 1),
+          }}
+          renderItem={(track: Track) => (
+            <ListItem
+              imageUrl={track.image[0]['#text']}
+              title={track.name}
+              subtitle={track.artist}
+              onClick={() => {
+                navigate(
+                  `/similar?${new URLSearchParams({
+                    track: track.name,
+                    artist: track.artist,
+                  })}`
+                );
+              }}
+            />
+          )}
+          autoFocus
+        />
       </div>
-    </>
+    </div>
   );
 };
 

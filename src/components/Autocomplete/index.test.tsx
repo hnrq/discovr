@@ -4,6 +4,16 @@ import { render, fireEvent } from 'solid-testing-library';
 
 import Autocomplete, { AutocompleteProps } from '.';
 
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null,
+});
+
+window.IntersectionObserver = vitest
+  .fn()
+  .mockImplementation(intersectionObserverMock);
+
 const renderAutocomplete = (props: Partial<AutocompleteProps>) => {
   const [query, setQuery] = createSignal('');
   const [items] = createResource(() => ['item 1', 'item 2']);
@@ -22,7 +32,7 @@ const renderAutocomplete = (props: Partial<AutocompleteProps>) => {
 
 describe('<Autocomplete />', () => {
   it('calls setQuery when typing in the input', () => {
-    const setQuery = jest.fn();
+    const setQuery = vitest.fn();
     const placeholder = 'Search...';
     const value = 'hello';
     const { getByPlaceholderText } = renderAutocomplete({
