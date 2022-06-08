@@ -10,6 +10,7 @@
     "prepare": "husky install",
     "format": "prettier --write '**/*.{js,json,md,yml,yaml,css,scss,ts,tsx,html,vue}'",
     "typecheck": "tsc --noEmit",
+    "lint-staged": "lint-staged",
     "lint": "eslint './src/**.{ts,tsx}' --fix"
   },
   "license": "MIT",

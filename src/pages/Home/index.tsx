@@ -50,7 +50,7 @@ const Home: Component = () => {
 
   const transition = (element: Element) => {
     gsap.from(element.children, {
-      delay: 0.2,
+      delay: 0.5,
       opacity: 0,
       duration: 1,
       stagger: 1,
