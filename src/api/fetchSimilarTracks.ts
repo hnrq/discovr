@@ -11,7 +11,7 @@ const fetchSimilarTracks = async (
   try {
     const response = await (
       await fetch(
-        'http://ws.audioscrobbler.com/2.0/?' +
+        import.meta.env.VITE_API_HOST +
           new URLSearchParams({
             method: 'track.getsimilar',
             track: args.track,
